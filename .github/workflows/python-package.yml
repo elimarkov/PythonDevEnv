@@ -25,9 +25,9 @@ jobs:
       - name: Compress
         uses: thedoctor0/zip-release@master
         with:
-          type: "tar"
+#           type: "tar"
           filename: 'linux-release.zip'
-          # exclusions: '*.git* /*node_modules/* .editorconfig'
+          exclusions: '*.cpp *.html *.py'
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
