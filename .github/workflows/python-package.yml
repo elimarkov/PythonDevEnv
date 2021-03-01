@@ -51,8 +51,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python-version: [3.7, 3.8, 3.9]
+        os: [ubuntu-latest]
+        python-version: [3.9]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -82,4 +82,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: python-dev-env-${{ matrix.os }}-${{ matrix.python-version }}
-        path: output/
+        path: src/
