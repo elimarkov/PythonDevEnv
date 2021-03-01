@@ -33,14 +33,14 @@ jobs:
           name: python-dev-env-ubuntu-latest-3.9
       - name: Compress for Linux
         run: |
-          tar -zcvf ./linux-release.tar.gz --exclude=*.cpp --exclude=*.html --exclude=*.py --exclude=linux-release.tar.gz ./
+          tar -zcvf ../linux-release.tar.gz --exclude=*.cpp --exclude=*.html --exclude=*.py --exclude=linux-release.tar.gz ./
       - name: Upload Linux Assets to GitHub Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url}}
-          asset_path: ./linux-release.tar.gz
+          asset_path: ../linux-release.tar.gz
           asset_name: python-dev-env_v${{github.run_number}}.tar.gz
           asset_content_type: application/gzip
       
