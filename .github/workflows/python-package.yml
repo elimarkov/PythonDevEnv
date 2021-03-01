@@ -24,7 +24,7 @@ jobs:
           name: python-dev-env-ubuntu-latest-3.9
       - name: Compress for Linux
         run: |
-          tar -zcvf ./linux-release.tar.gz --exclude=*.cpp --exclude=*.html --exclude=*.py ./
+          tar -zcvf ./linux-release.tar.gz --exclude=*.cpp --exclude=*.html --exclude=*.py --exclude=linux-release.tar.gz./
       
       - name: Compress for Windows
         uses: thedoctor0/zip-release@master
