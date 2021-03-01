@@ -4,10 +4,10 @@ class Matrix():
       self.__columns = columns
 
   @property
-  def get_rows(self):
+  def rows(self):
     return self.__rows
 
   @property
-  def get_columns(self):
+  def columns(self):
     return self.__columns
 
