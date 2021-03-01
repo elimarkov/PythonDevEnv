@@ -18,19 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download Linux artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: python-dev-env-ubuntu-latest-3.9
-      - name: Compress for Linux
-        run: |
-          tar -zcvf ./linux-release.tar.gz --exclude=*.cpp --exclude=*.html --exclude=*.py --exclude=linux-release.tar.gz./
-      
-      - name: Compress for Windows
-        uses: thedoctor0/zip-release@master
-        with:
-          filename: 'windows-release.zip'
-          exclusions: '*.cpp *.html *.py'
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -39,6 +26,14 @@ jobs:
         with:
           tag_name: v${{github.run_number}}
           release_name: Release V${{github.run_number}}
+
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: python-dev-env-ubuntu-latest-3.9
+      - name: Compress for Linux
+        run: |
+          tar -zcvf ./linux-release.tar.gz --exclude=*.cpp --exclude=*.html --exclude=*.py --exclude=linux-release.tar.gz ./
       - name: Upload Linux Assets to GitHub Release
         uses: actions/upload-release-asset@v1
         env:
@@ -48,6 +43,16 @@ jobs:
           asset_path: ./linux-release.tar.gz
           asset_name: python-dev-env_v${{github.run_number}}.tar.gz
           asset_content_type: application/gzip
+      
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: python-dev-env-windows-latest-3.9
+      - name: Compress for Windows
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: 'windows-release.zip'
+          exclusions: '*.cpp *.html *.py'
       - name: Upload Windows Assets to GitHub Release
         uses: actions/upload-release-asset@v1
         env:
