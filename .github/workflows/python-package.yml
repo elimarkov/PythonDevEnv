@@ -13,8 +13,41 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  release-project:
+    name: Release to GitHub Releases
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: python-dev-env-windows-latest-3.9
+      - name: Compress
+        uses: thedoctor0/zip-release@master
+        with:
+          type: "zip"
+          filename: 'windows-release.zip'
+          # exclusions: '*.git* /*node_modules/* .editorconfig'
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create_release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{github.run_number}}
+          release_name: Release V${{github.run_number}}
+      - name: Upload Assets to GitHub Release
+        uses: actions/upload-release-assert@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url}}
+          asset_path: ./windows-release.zip
+          asset_name: python-dev-env_v{{github.run_number}}.zip
+          asset_content_type: application/zip
 
+
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -24,7 +57,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.os }} ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
@@ -45,3 +78,8 @@ jobs:
     - name: Run tests
       run: |
         python3 -m unittest discover tests/
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: python-dev-env-${{ matrix.os }}-${{ matrix.python-version }}
+        path: output/
