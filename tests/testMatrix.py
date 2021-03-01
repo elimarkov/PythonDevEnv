@@ -8,8 +8,8 @@ class TestMatrix(unittest.TestCase):
     self.assertIsNotNone(Matrix(10, 20))
 
   def test_rows(self):
-    m = Matrix(10, 20)
-    self.assertEqual(5, m.rows)
+    m = Matrix(20, 22)
+    self.assertEqual(20, m.rows)
 
 if __name__ == '__main__':
     unittest.main()
