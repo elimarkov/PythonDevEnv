@@ -21,7 +21,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: python-dev-env-windows-latest-3.9
+          name: python-dev-env-ubuntu-latest-3.9
       - name: Compress
         uses: thedoctor0/zip-release@master
         with:
@@ -30,7 +30,7 @@ jobs:
           # exclusions: '*.git* /*node_modules/* .editorconfig'
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create_release@v1
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
