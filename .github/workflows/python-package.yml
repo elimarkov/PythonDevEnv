@@ -4,6 +4,8 @@
 name: Python package
 
 on:
+  repository_dispatch:
+    types: do-something
   push:
     branches: [ main ]
   pull_request:
