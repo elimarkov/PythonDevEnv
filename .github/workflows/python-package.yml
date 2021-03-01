@@ -45,7 +45,7 @@ jobs:
           asset_name: python-dev-env_v${{github.run_number}}.tar.gz
           asset_content_type: application/gzip
       
-      - name: Download Linux artifacts
+      - name: Download Windows artifacts
         uses: actions/download-artifact@v2
         with:
           name: python-dev-env-windows-latest-3.9
@@ -72,7 +72,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [3.9]
+        python-version: [3.7, 3.8, 3.9]
     runs-on: ${{ matrix.os }}
 
     steps:
