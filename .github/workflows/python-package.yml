@@ -25,8 +25,8 @@ jobs:
       - name: Compress
         uses: thedoctor0/zip-release@master
         with:
-          type: "zip"
-          filename: 'windows-release.zip'
+          type: "tar"
+          filename: 'linux-release.zip'
           # exclusions: '*.git* /*node_modules/* .editorconfig'
       - name: Create GitHub Release
         id: create_release
@@ -37,7 +37,7 @@ jobs:
           tag_name: v${{github.run_number}}
           release_name: Release V${{github.run_number}}
       - name: Upload Assets to GitHub Release
-        uses: actions/upload-release-assert@v1
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
