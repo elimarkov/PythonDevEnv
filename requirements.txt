@@ -1,1 +1,2 @@
 Cython==3.0a6
+unittest-xml-reporting
