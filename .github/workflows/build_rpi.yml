@@ -18,7 +18,7 @@ jobs:
     
     - name: Set up Python 
       run: |
-        pyenv local 3.7.8
+        pyenv local 3.7.10
         python -m venv .venv
     
     - name: Install dependencies
